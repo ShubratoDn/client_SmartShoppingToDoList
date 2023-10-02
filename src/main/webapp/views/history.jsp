@@ -19,11 +19,8 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 border mx-auto rounded mt-4">
-                <h1 class="text-center my-3">Active Shopping List</h1>
+                <h1 class="text-center my-3">Your History</h1>
 
-                <div class="shopping-list-btns">
-                    <a class="btn btn-outline-info" href="/add-list">Add New List</a>
-                </div>
                 <!-- shopping list items -->
                 <div class="shopping-list">
                 

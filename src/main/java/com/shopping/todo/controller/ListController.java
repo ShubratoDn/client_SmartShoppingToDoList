@@ -1,7 +1,6 @@
 package com.shopping.todo.controller;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -107,11 +106,15 @@ public class ListController {
 	    	}
 	    	listServices.updateListDetails(details);	    	
 	    }
-	    
-//	    return ""; // Redirect to a success page after processing
 	}
 
 
+	
+	@PostMapping("/change-validity")
+	public String changeValidity(@RequestParam int shoppingListId) {		
+		listServices.updateListValidity(shoppingListId);
+		return "redirect:/list?id="+shoppingListId;
+	}
 
 	
 	

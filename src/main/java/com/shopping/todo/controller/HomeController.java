@@ -26,9 +26,26 @@ public class HomeController {
 			return "redirect:/login";
 		}
 
-		List<ListOverview> myFullList = listServices.getMyFullList();
+		List<ListOverview> myFullList = listServices.getAllActiveList();
 		model.addAttribute("validShoppingList", myFullList);		
 		return "index";
 	}
 
+	
+	
+	@GetMapping(value = { "/history" })
+	public String history(Model model) {
+		if (userServices.loggedUserInfo() == null) {
+			return "redirect:/login";
+		}
+
+		List<ListOverview> myFullList = listServices.getMyFullList();
+		model.addAttribute("validShoppingList", myFullList);		
+		return "history";
+	}
+
+	
+	
+	
+	
 }

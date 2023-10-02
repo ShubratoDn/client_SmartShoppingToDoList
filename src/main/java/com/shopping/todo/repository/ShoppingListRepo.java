@@ -9,4 +9,10 @@ import com.shopping.todo.entity.User;
 
 public interface ShoppingListRepo extends JpaRepository<ShoppingList, Integer> {
 	 List<ShoppingList> findByUserOrderByIdDesc(User user);
+	 List<ShoppingList> findByUserOrderByLastUpdatedDesc(User user);	 
+	 
+	 List<ShoppingList> findByUserAndIsExpiredFalseOrderByIdDesc(User user);
+
+	 List<ShoppingList> findByUserAndIsExpiredFalseOrderByLastUpdatedDesc(User user);
+	 
 }

@@ -3,19 +3,8 @@
 <%@page import="com.shopping.todo.entity.ListDetails"%>
 <%@page import="com.shopping.todo.entity.ShoppingList"%>
 <%@page import="com.shopping.todo.payload.FullShoppingList"%>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smart Shopping To Do List</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="resources/css/style.css">
-</head>
 
-<body class="expired">
-   
-   	<%@include file="partials/navbar.jsp" %>
    <%
    	 	FullShoppingList fullShoppingList = (FullShoppingList) request.getAttribute("listInfo");
    		if(fullShoppingList == null){
@@ -26,6 +15,21 @@
    		List<ListDetails> items = fullShoppingList.getItems();
    		
    %>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Shopping To Do List</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="resources/css/style.css">
+</head>
+
+<body class="<%= (shoppingList.isExpired()) ? "expired" : "valid" %>">
+   
+   	<%@include file="partials/navbar.jsp" %>
+
 
     <div class="container">
         <div class="row">
@@ -57,13 +61,15 @@
                         </thead>
                         <tbody class="border-bottom">
 						    <%
+						    	Double myBudget = 0.0;
+						    
 						        for (ListDetails item : items) {
 						            Double price = (item.getPrice() * item.getQuantity());
 						            String actualPriceValue = (item.getActualPrice() == 0) ? ""+item.getPrice() : String.valueOf(item.getActualPrice());
 						            String actualQuantityValue = (item.getActualQuantity() == 0) ? "" : String.valueOf(item.getActualQuantity());
 						            
 						            Double actualTotalPrice = item.getActualPrice() * item.getActualQuantity();
-						            
+                                    myBudget +=price;
 						    %>
 						    <tr>
 						        <td><%= item.getName() %></td>
@@ -94,11 +100,19 @@
 						    %>
 						</tbody>
                     </table>
-
                 </form>
-				
-				<form action="/change-validity">
-					<input type="submit" class="btn btn-danger my-5" value="Mark as Shopping Done">
+
+				<div class="d-flex justify-content-between">
+					<h3> Your Budget : $<%=myBudget %></h3>
+					<h3> Your Expense : $<span id="totalExpense">100</span></h3>
+				</div>
+
+				<form action="/change-validity" method="post">
+					<input hidden name="shoppingListId" value="<%=shoppingList.getId()%>">
+					<%= (shoppingList.isExpired()) 
+					? 
+							"<input type='submit' class='btn btn-success my-5' value='Start Shopping Again'>" 
+							: "<input type='submit' class='btn btn-danger my-5' value='Mark as Shopping Done'>" %>
 				</form>
 
             </div>
@@ -113,10 +127,39 @@
     
     
     <script>
+    
+    
+		 // Function to calculate and update totalExpense
+		    function updateTotalExpense() {
+		        var totalExpense = 0;
+		        
+		        // Iterate through all rows
+		        $(".actual-price-input").each(function() {
+		            var rowIndex = $(this).data("row-index");
+		            var actualPriceInput = $(".actual-price-input[data-row-index='" + rowIndex + "']");
+		            var actualQuantityInput = $(".actual-quantity-input[data-row-index='" + rowIndex + "']");
+		            
+		            var actualPrice = parseFloat(actualPriceInput.val()) || 0;
+		            var actualQuantity = parseFloat(actualQuantityInput.val()) || 0;
+		            
+		            // Calculate row total and add to totalExpense
+		            totalExpense += actualPrice * actualQuantity;
+		        });
+		
+		        // Update the totalExpense display
+		        $("#totalExpense").text(totalExpense.toFixed(2));
+		    }
+ 
+    
+    
+    
+    
+    
 	    // Wait for the document to be ready
 	    $(document).ready(function () {
 	        // Add event listeners to actualPrice and actualQuantity input fields
-	        $(".actual-price-input, .actual-quantity-input").on("input", function () {	        	
+	        $(".actual-price-input, .actual-quantity-input").on("input", function () {
+
 	            var rowIndex = $(this).data("row-index");
 	            var actualPriceInput = $(".actual-price-input[data-row-index='" + rowIndex + "']");
 	            var actualQuantityInput = $(".actual-quantity-input[data-row-index='" + rowIndex + "']");
@@ -132,7 +175,9 @@
 	
 	            // Update the total price cell
 	            totalPriceCell.text("$" + totalPrice.toFixed(2)); // Format the total price
-	
+				
+	         // Calculate and update totalExpense
+	            updateTotalExpense();
 	            
 	            
 	         // Get the form element.
@@ -158,7 +203,10 @@
 	                }
 	            });
 	            
-	        }); 
+	        });
+
+	        // Initial calculation of totalExpense
+	        updateTotalExpense();
 	    });
 	</script>
     
