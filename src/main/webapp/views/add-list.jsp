@@ -43,7 +43,7 @@
 					            <tr>
 					                <th scope="col">Item Name</th>
 					                <th scope="col">Image</th>
-					                <th scope="col">Unit name</th>
+					                <th scope="col">Unit <span class="text-muted font-12">(eg: piece / kg)</span></th>
 					                <th scope="col">Price / Unit</th>
 					                <th scope="col">Quantity</th>
 					                <th scope="col">Total Amount</th>

@@ -31,7 +31,7 @@
                 		List<ListOverview> listOverviews = (List<ListOverview>) request.getAttribute("validShoppingList");
                 		if(listOverviews == null || listOverviews.isEmpty()){
                 			%>
-                				<h1>No list found</h1>
+                				<h1 class="text-center my-5">No list found</h1>
                 			<%
                 		}else{
                 			for(ListOverview overview : listOverviews){                			

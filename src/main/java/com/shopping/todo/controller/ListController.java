@@ -59,7 +59,7 @@ public class ListController {
 	public String addList(@ModelAttribute ListForm listForm, Model model) {
 		
 		 // Remove objects with null or empty name from the list
-	    listForm.getItems().removeIf(item -> item.getName() == null || item.getName().isEmpty());
+	    listForm.getItems().removeIf(item -> item.getName() == null || item.getName().isEmpty() || item.getPrice() == null || item.getQuantity() == null);
 
 	    if(listForm.getListTitle() == null || listForm.getListTitle().equals("")) {
 	    	listForm.setListTitle("No title");	    	

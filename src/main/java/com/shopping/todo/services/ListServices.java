@@ -46,6 +46,15 @@ public class ListServices {
 	
 	public void addFullList(List<ListDetails> list, ShoppingList shoppingList) {
 		for(ListDetails item : list) {
+			if(item.getActualPrice() == null) {
+				item.setActualPrice(0.0);
+			}
+			
+			if(item.getActualQuantity() == null) {
+				item.setActualQuantity(0.0);
+			}
+			
+			
 			item.setShoppingList(shoppingList);
 			listDetailsRepo.save(item);
 		}
