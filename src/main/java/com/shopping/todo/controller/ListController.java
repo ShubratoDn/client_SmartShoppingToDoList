@@ -1,5 +1,8 @@
 package com.shopping.todo.controller;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -82,6 +85,31 @@ public class ListController {
 		
 		return "add-list";
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	@PostMapping("/update-list")
+	public String updateList(@ModelAttribute ListForm listForm, Model model) {
+	    List<ListDetails> updatedListDetails = listForm.getItems();
+	    System.out.println(updatedListDetails.size());
+	    
+	    for(ListDetails details: updatedListDetails) {
+	    	System.out.println(details);
+	    }
+	    // Now, updatedListDetails contains the ListDetails objects with updated actual prices and quantities
+
+	    // You can iterate through updatedListDetails and perform any necessary database updates
+
+	    return ""; // Redirect to a success page after processing
+	}
+
+
+
 	
 	
 	

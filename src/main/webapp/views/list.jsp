@@ -69,18 +69,22 @@
 						        <td class="separator-left-success">$<%= item.getPrice() %> / <%= item.getUnit() %></td>
 						        <td><%= item.getQuantity() %> <%= item.getUnit() %></td>
 						        <td>$<%= price %></td>
-						        <td class="separator-left-success">
+								<td class="separator-left-success">
 				                    <input value="<%= item.getPrice() %>" type="number" placeholder="Price"
 				                        class="form-control actual-price-input" data-row-index="<%= item.getId() %>"
-				                        name="actualPrices[<%= item.getId() %>]">
+				                       name="items[<%=item.getId() %>].actualPrice">
 				                </td>
+				                								
 				                <td class="d-flex">
 				                    <input value="<%= actualQuantityValue %>" type="number" placeholder="Quantity"
 				                        class="form-control actual-quantity-input mr-3" data-row-index="<%= item.getId() %>"
-				                        name="actualQuantities[<%= item.getId() %>]">
+				                        name="items[<%=item.getId() %>].actualQuantity">
 				                    <%=item.getUnit() %>
-				                </td>
+				                </td>								
 				                <td class="separator-right-primary" data-row-index="<%= item.getId() %>">$0</td>
+				                <td class="d-none">
+									<input type="text" hidden class="form-control" name="items[<%=item.getId() %>].id" value="<%=item.getId()%>"/>
+								</td>
 						    </tr>
 						    <%
 						        }
