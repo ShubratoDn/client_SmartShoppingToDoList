@@ -37,9 +37,11 @@
                     <input class="form-control my-2" type="text" name="name" placeholder="Enter your Name">
                     <input class="form-control my-2" type="text" name="email" placeholder="Enter your email">
                     <input class="form-control my-2" type="password" name="password" placeholder="Enter your password">
-<!--                     <input class="form-control my-2" type="file" name="file"> -->
-
+<!--                     <input class="form-control my-2" type="file" name="file"> -->					
                     <input class="btn btn-outline-dark w-100" type="submit" value="Register now">
+                    <div class="text-right mt-4">
+						<a href="/login">Click here to Login</a>
+					</div>
                 </form>
             </div>
         </div>

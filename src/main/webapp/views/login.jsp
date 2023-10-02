@@ -38,6 +38,9 @@
                     <input class="form-control my-2" type="password" name="password" placeholder="Enter your password">
 
                     <input class="btn btn-outline-dark w-100" type="submit" value="Login now">
+                      <div class="text-right mt-4">
+						<a href="/register">Click here to Register</a>
+					</div>
                 </form>
             </div>
         </div>

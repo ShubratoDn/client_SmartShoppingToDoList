@@ -15,7 +15,7 @@
         
         <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-                <a class="nav-item nav-link" href="/">My List <span class="sr-only">(current)</span></a>
+                <a class="nav-item nav-link" href="/">Active List <span class="sr-only">(current)</span></a>
                 <a class="nav-item nav-link" href="/add-list">Add New List</a>
                 <a class="nav-item nav-link" href="/add-product">Add New Product</a>
                 <a class="nav-item nav-link" href="/history">History</a>
@@ -32,8 +32,8 @@
         
         <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-                <a class="nav-item nav-link" href="/login">Login</a>
-                <a class="nav-item nav-link" href="/register">Register</a>
+                <a class="nav-item nav-link font-20" href="/login">Login</a>
+                <a class="nav-item nav-link font-20" href="/register">Register</a>
             </div>       
         </div>
         
