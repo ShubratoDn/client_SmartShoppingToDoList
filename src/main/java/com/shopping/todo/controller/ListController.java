@@ -94,18 +94,21 @@ public class ListController {
 	
 	
 	@PostMapping("/update-list")
-	public String updateList(@ModelAttribute ListForm listForm, Model model) {
+	public void updateList(@ModelAttribute ListForm listForm, Model model) {
+		System.out.println("REQUEST FOUND");
 	    List<ListDetails> updatedListDetails = listForm.getItems();
 	    System.out.println(updatedListDetails.size());
 	    
-	    for(ListDetails details: updatedListDetails) {
-	    	System.out.println(details);
+	    listForm.getItems().removeIf(item -> item.getId() == 0);
+	    
+	    for(ListDetails details: updatedListDetails) {	  
+	    	if(details.getActualPrice() == null) {
+	    		details.setActualPrice(0.0);
+	    	}
+	    	listServices.updateListDetails(details);	    	
 	    }
-	    // Now, updatedListDetails contains the ListDetails objects with updated actual prices and quantities
-
-	    // You can iterate through updatedListDetails and perform any necessary database updates
-
-	    return ""; // Redirect to a success page after processing
+	    
+//	    return ""; // Redirect to a success page after processing
 	}
 
 

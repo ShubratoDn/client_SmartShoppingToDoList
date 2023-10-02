@@ -124,5 +124,15 @@ public class ListServices {
 	
 	
 	
+	public void updateListDetails(ListDetails listDetails) {
+		ListDetails findById = listDetailsRepo.findById(listDetails.getId());
+		findById.setActualPrice(listDetails.getActualPrice());
+		findById.setActualQuantity(listDetails.getActualQuantity());
+		
+		listDetailsRepo.save(findById);
+		
+	}
+	
+	
 	
 }

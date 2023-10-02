@@ -34,8 +34,8 @@ public class ListDetails {
 	private String image;	
 	
 	
-	private double actualPrice;
-	private double actualQuantity;
+	private Double actualPrice;
+	private Double actualQuantity;
 	@Override
 	public String toString() {
 		return "ListDetails [id=" + id + ", product=" + product + ", name=" + name + ", unit=" + unit + ", price="

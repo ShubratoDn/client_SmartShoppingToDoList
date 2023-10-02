@@ -18,5 +18,7 @@ public interface ListDetailsRepo extends JpaRepository<ListDetails, Integer> {
 
 	
 	 List<ListDetails> findByShoppingList(ShoppingList shoppingList);
+	 	 
+	 ListDetails findById(int id);
 	 
 }

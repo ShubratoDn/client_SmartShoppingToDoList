@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="resources/css/style.css">
 </head>
 
-<body class="">
+<body class="expired">
    
    	<%@include file="partials/navbar.jsp" %>
    <%
@@ -36,7 +36,7 @@
 
                 </div>
                 <!-- shopping list items -->
-                <form action="/update-list" method="post">
+                <form id="my-form">
                     <table class="table">
                         <thead>
                             <tr>
@@ -59,8 +59,11 @@
 						    <%
 						        for (ListDetails item : items) {
 						            Double price = (item.getPrice() * item.getQuantity());
-						            String actualPriceValue = (item.getActualPrice() == 0) ? "" : String.valueOf(item.getActualPrice());
+						            String actualPriceValue = (item.getActualPrice() == 0) ? ""+item.getPrice() : String.valueOf(item.getActualPrice());
 						            String actualQuantityValue = (item.getActualQuantity() == 0) ? "" : String.valueOf(item.getActualQuantity());
+						            
+						            Double actualTotalPrice = item.getActualPrice() * item.getActualQuantity();
+						            
 						    %>
 						    <tr>
 						        <td><%= item.getName() %></td>
@@ -70,7 +73,7 @@
 						        <td><%= item.getQuantity() %> <%= item.getUnit() %></td>
 						        <td>$<%= price %></td>
 								<td class="separator-left-success">
-				                    <input value="<%= item.getPrice() %>" type="number" placeholder="Price"
+				                    <input value="<%= actualPriceValue %>" type="number" placeholder="Price"
 				                        class="form-control actual-price-input" data-row-index="<%= item.getId() %>"
 				                       name="items[<%=item.getId() %>].actualPrice">
 				                </td>
@@ -81,7 +84,7 @@
 				                        name="items[<%=item.getId() %>].actualQuantity">
 				                    <%=item.getUnit() %>
 				                </td>								
-				                <td class="separator-right-primary" data-row-index="<%= item.getId() %>">$0</td>
+				                <td class="separator-right-primary" data-row-index="<%= item.getId() %>">$<%=actualTotalPrice %></td>
 				                <td class="d-none">
 									<input type="text" hidden class="form-control" name="items[<%=item.getId() %>].id" value="<%=item.getId()%>"/>
 								</td>
@@ -92,9 +95,11 @@
 						</tbody>
                     </table>
 
-
-                    <input type="submit" class="btn btn-warning my-5" value="Mark as Shopping Done">
                 </form>
+				
+				<form action="/change-validity">
+					<input type="submit" class="btn btn-danger my-5" value="Mark as Shopping Done">
+				</form>
 
             </div>
         </div>
@@ -116,23 +121,43 @@
 	            var actualPriceInput = $(".actual-price-input[data-row-index='" + rowIndex + "']");
 	            var actualQuantityInput = $(".actual-quantity-input[data-row-index='" + rowIndex + "']");
 	            var totalPriceCell = $("td.separator-right-primary[data-row-index='" + rowIndex + "']");
-	
-	            console.log(totalPriceCell)
-	            
+		            
 	            // Get actual price and quantity values
 	            var actualPrice = parseFloat(actualPriceInput.val()) || 0;
 	            var actualQuantity = parseFloat(actualQuantityInput.val()) || 0;
 	
-	            console.log(actualPrice)
-	            console.log(actualQuantity)
-	            
+	           
 	            // Calculate total price
 	            var totalPrice = actualPrice * actualQuantity;
 	
 	            // Update the total price cell
 	            totalPriceCell.text("$" + totalPrice.toFixed(2)); // Format the total price
 	
-	            // You can also update the corresponding item in your data model (if needed)
+	            
+	            
+	         // Get the form element.
+	            const form = document.getElementById('my-form');
+
+	            // Create a new FormData object.
+	            const formData = new FormData(form);
+
+	            // Send the AJAX request to the server
+	            $.ajax({
+	                url: "/update-list",
+	                type: "POST",
+	                processData: false,  // Don't process the data
+	                contentType: false,  // Don't set content type
+	                data: formData,
+	                success: function (response) {
+	                    // Handle the server's response if needed
+// 	                    console.log("AJAX request sent successfully");
+	                },
+	                error: function (error) {
+	                    // Handle errors if necessary
+// 	                    console.error(error);
+	                }
+	            });
+	            
 	        }); 
 	    });
 	</script>
