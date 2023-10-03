@@ -19,7 +19,8 @@
                 <a class="nav-item nav-link" href="/add-list">Add New List</a>
                 <a class="nav-item nav-link" href="/add-product">Add New Product</a>
                 <a class="nav-item nav-link" href="/history">History</a>
-                <a class="nav-item nav-link" href="/logout">Logout</a>
+                <a class="nav-item nav-link" href="/products">All products</a>
+                <a class="nav-item nav-link text-danger font-18" href="/logout"><b>Logout</b></a>
             </div>
             <div class="nav-user-info text-muted">
                 <img src="resources/image/userImage/user.png" alt="user" class="nav-user-image">

@@ -7,6 +7,8 @@ import java.security.SecureRandom;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -120,5 +122,14 @@ public class ProductServices {
 		return findByNameContaining;
 	}	
 	
+	public List<Product> getAllProducts() {
+	    // Create a sorting object to sort by id in descending order
+	    Sort sort = Sort.by(Direction.DESC, "id");
+	    
+	    // Use the findAll method with the sorting parameter
+	    List<Product> findAll = productRepo.findAll(sort);
+	    
+	    return findAll;
+	}
 	
 }

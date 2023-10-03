@@ -65,4 +65,13 @@ public class ProductController {
 	}
 	
 	
+	@GetMapping("/products")
+	public String getAllProducts(Model model) {
+		List<Product> allProducts = productServices.getAllProducts();
+		model.addAttribute("allProducts", allProducts);
+		return "all-products";
+	}
+	
+	
+	
 }
